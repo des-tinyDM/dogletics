@@ -74,6 +74,7 @@ const FullProduct = styled.div`
   flex-direction: row;
 
   & .imagesContainer {
+    height: 77vh;
     margin: 2.5vh 0 0 5vw;
     width: 55vw;
     border: 1px solid lightgrey;
@@ -81,7 +82,7 @@ const FullProduct = styled.div`
   & img.bigImage {
     max-width: 50vw;
     height: 50vh;
-    margin: 2.5vh auto;
+    margin: 0 auto;
   }
   & div.allImages {
     border: 1px solid lightgrey;
@@ -90,7 +91,7 @@ const FullProduct = styled.div`
     overflow-x: scroll;
     width: 50vw;
     height: 15vh;
-    margin: 2vh auto 0 auto;
+    margin: 0 auto;
 
     & .container {
       position: relative;
@@ -134,6 +135,7 @@ const FullProduct = styled.div`
   }
 
   & .descriptionContainer {
+    height: 77vh;
     width: 40vw;
     margin: 2.5vh 5vw;
     border: 1px solid lightgrey;

@@ -5,27 +5,35 @@ import {
   getInventory,
   getSportInventory
 } from "../../../ducks/inventoryReducer";
+import { getUser } from "../../../ducks/userReducer";
 import Product from "./Product";
 import styled from "styled-components";
 
 class Home extends Component {
   constructor(props) {
     super(props);
-    this.state = { sportDisplayed: "agility" };
+    this.state = { sportDisplayed: "agility", numberDisplayed: 4, offset: 0 };
   }
 
   componentDidMount = () => {
-    this.props.getInventory();
+    this.props.getInventory(this.state.numberDisplayed, this.state.offset);
     this.props.getSportInventory("agility");
+    this.props.getUser();
   };
   chooseSport = str => {
     console.log(str);
     this.props.getSportInventory(str);
     this.setState({ sportDisplayed: str });
   };
-  render() {
-    console.log(this.state, this.props);
 
+  chooseNumberDisplayed = num => {
+    this.setState({ numberDisplayed: num }, () =>
+      this.props.getInventory(this.state.numberDisplayed, this.state.offset)
+    );
+  };
+
+  render() {
+    console.log(this.state);
     return (
       <InventorySection>
         {this.props.loading === true && (
@@ -39,8 +47,8 @@ class Home extends Component {
             </div>
           </Loader>
         )}
-        <h1 className="sectionTitle">Hot Items</h1>
-        <div>list of items here</div>
+        {/* <h1 className="sectionTitle">Hot Items</h1>
+        <div>list of items here</div> */}
         <div className="sports">
           <div className="sportsHeader">
             <h1 className="sectionTitle">By Sport</h1>
@@ -62,15 +70,6 @@ class Home extends Component {
               >
                 Flyball
               </h3>
-
-              <h3
-                className={`option
-                  ${this.state.sportDisplayed === "bikejoring" && "current"}
-                  `}
-                onClick={() => this.chooseSport("bikejoring")}
-              >
-                Bikejoring
-              </h3>
               <h3
                 className={`option
                   ${this.state.sportDisplayed === "discdog" && "current"}
@@ -79,30 +78,6 @@ class Home extends Component {
               >
                 Disc dog
               </h3>
-              <h3
-                className={`option
-                  ${this.state.sportDisplayed === "dockdiving" && "current"}
-                  `}
-                onClick={() => this.chooseSport("dockdiving")}
-              >
-                Dock Diving
-              </h3>
-              <h3
-                className={`option
-                  ${this.state.sportDisplayed === "lurecoursing" && "current"}
-                  `}
-                onClick={() => this.chooseSport("lurecoursing")}
-              >
-                Lure Coursing
-              </h3>
-              <h3
-                className={`option
-                  ${this.state.sportDisplayed === "rallyo" && "current"}
-                  `}
-                onClick={() => this.chooseSport("rallyo")}
-              >
-                Rally O
-              </h3>
             </div>
           </div>
           <Inventory id="sports">
@@ -110,6 +85,7 @@ class Home extends Component {
               this.props.sportInventory.map((product, index) => {
                 return (
                   <Product
+                    className="product"
                     key={index}
                     category={product.category}
                     description={product.description}
@@ -121,31 +97,57 @@ class Home extends Component {
                   />
                 );
               })}
-            {!this.props.sportInventory[0] && (
-              <h1>
-                We're out of stock or don't carry equipment for this sport yet.
-                Come back soon for more goodies!
-              </h1>
-            )}
           </Inventory>
         </div>
-        <h1 className="sectionTitle">All Inventory</h1>
-        <Inventory>
-          {this.props.inventory &&
-            this.props.inventory.map((product, index) => {
-              return (
-                <Product
-                  key={index}
-                  category={product.category}
-                  description={product.description}
-                  images={product.images}
-                  name={product.name}
-                  price={product.price}
-                  company={product.company}
-                />
-              );
-            })}
-        </Inventory>
+        <div className="inventory">
+          <div className="inventoryHeader">
+            <h1 className="sectionTitle">All Inventory</h1>
+            <div className="limitOptions">
+              <h3
+                className={`option
+                  ${this.state.numberDisplayed === 4 && "current"}
+                  `}
+                onClick={() => this.chooseNumberDisplayed(4)}
+              >
+                Show 4
+              </h3>
+
+              <h3
+                className={`option
+                  ${this.state.numberDisplayed === 8 && "current"}
+                  `}
+                onClick={() => this.chooseNumberDisplayed(8)}
+              >
+                Show 8
+              </h3>
+
+              <h3
+                className={`option
+                  ${this.state.numberDisplayed === 16 && "current"}
+                  `}
+                onClick={() => this.chooseNumberDisplayed(16)}
+              >
+                Show 16
+              </h3>
+            </div>
+          </div>
+          <Inventory>
+            {this.props.inventory &&
+              this.props.inventory.map((product, index) => {
+                return (
+                  <Product
+                    key={index}
+                    category={product.category}
+                    description={product.description}
+                    images={product.images}
+                    name={product.name}
+                    price={product.price}
+                    company={product.company}
+                  />
+                );
+              })}
+          </Inventory>
+        </div>
       </InventorySection>
     );
   }
@@ -163,7 +165,7 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { getInventory, getSportInventory }
+  { getInventory, getSportInventory, getUser }
 )(Home);
 
 const InventorySection = styled.div`
@@ -183,24 +185,32 @@ const InventorySection = styled.div`
     padding: 0 0 0 5vw;
     display: inline-block;
   }
-  & .sports {
+  & .sports,
+  .inventory {
     width: 100vw;
-    & .sportsHeader {
+    &:first-child {
+      /* margin: 0 0 0 5vw; */
+    }
+    & .sportsHeader,
+    .inventoryHeader {
       background: black;
       display: flex;
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
       color: white;
+      font-size: 1.5rem;
+
       & h1 {
         width: 15%;
       }
-      & .sportOptions {
+      & .sportOptions,
+      .limitOptions {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        margin: 0 5vw 0 0;
-        width: 75%;
+        margin: 0 20vw 0 0;
+        width: 40%;
 
         & .option {
           margin: 0 2vw;
@@ -220,7 +230,9 @@ const Inventory = styled.div`
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-
+  & h3 {
+    font-size: 2rem;
+  }
   &#sports {
     flex-wrap: nowrap;
     overflow-x: scroll;

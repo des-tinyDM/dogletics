@@ -14,7 +14,7 @@ class App extends Component {
     return (
       <ThemeProvider theme={theme}>
         <div className="App">
-          <Header />
+          <Header user={this.props.user} />
           {routes}
           <Footer />
         </div>

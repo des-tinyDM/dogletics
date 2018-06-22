@@ -1,11 +1,11 @@
 const getInventory = (req, res) => {
   const db = req.app.get("db");
-
+  const { limit, offset } = req.query;
   db.inventory
-    .getInventory()
+    .getInventory(limit, offset)
     .then(inventory => {
       res.status(200).json(inventory);
-      console.log(inventory);
+      // console.log(inventory);
     })
     .catch(err => {
       res.status(500).json(err);
@@ -18,7 +18,7 @@ const getInventoryForSport = (req, res) => {
   db.inventory
     .getSportInventory(sport)
     .then(sportInventory => {
-      console.log(sportInventory);
+      // console.log(sportInventory);
       res.status(200).json(sportInventory);
     })
     .catch(err => {

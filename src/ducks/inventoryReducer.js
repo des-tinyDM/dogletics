@@ -4,6 +4,7 @@ const initialState = {
   inventory: [],
   sportList: [],
   sportInventory: [],
+  cart: [],
   product: {},
   error: "",
   isLoading: false
@@ -14,11 +15,11 @@ const GET_SPORTS_LIST = "GET_SPORTS_LIST";
 const GET_INVENTORY_SPORT = "GET_INVENTORY_SPORT";
 const GET_PRODUCT = "GET_PRODUCT";
 
-export function getInventory(sport) {
+export function getInventory(limit, offset) {
   return {
     type: GET_INVENTORY,
     payload: axios
-      .get(`/api/inventory`)
+      .get(`/api/inventory?limit=${limit}&offset=${offset}`)
       .then(inventory => {
         return inventory.data;
         console.log(inventory.data);
