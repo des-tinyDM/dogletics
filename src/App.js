@@ -8,6 +8,7 @@ import routes from "./routes";
 
 const theme = { backgroundColor: "" };
 
+
 class App extends Component {
   componentDidMount() {}
   render() {

@@ -10,6 +10,7 @@ class CartPage extends Component {
     this.state = {};
   }
   render() {
+    console.log(this.props);
     return (
       <PageContainer>
         {!this.props.cart[0] && (
@@ -38,10 +39,14 @@ export default connect(
 const NoCart = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 
   & img {
     width: 25%;
+  }
+
+  & button {
+    padding: 1vh 2vw;
   }
 `;

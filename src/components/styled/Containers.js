@@ -153,7 +153,7 @@ export const StyledHeader = styled.div`
     padding: 1vh 0;
     border-bottom: 1px solid lightgrey;
     align-items: center;
-    height: 17vh;
+    height: 12vh;
     & nav {
       width: 20vw;
       display: flex;
@@ -182,6 +182,14 @@ export const StyledHeader = styled.div`
         }
         &.login {
           border-right: 1px solid lightgray;
+        }
+        &.cart {
+          justify-content: center;
+          width: 4vw;
+          &:hover,
+          :active {
+            text-decoration: none;
+          }
         }
         & svg {
           margin: 0 0.5vw;

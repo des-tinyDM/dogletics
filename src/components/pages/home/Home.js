@@ -6,19 +6,26 @@ import {
   getSportInventory
 } from "../../../ducks/inventoryReducer";
 import { getUser } from "../../../ducks/userReducer";
+import { getCart, addToCart } from "../../../ducks/cartReducer";
+import Swal from "sweetalert2";
 import Product from "./Product";
 import styled from "styled-components";
 
 class Home extends Component {
   constructor(props) {
     super(props);
-    this.state = { sportDisplayed: "agility", numberDisplayed: 4, offset: 0 };
+    this.state = { sportDisplayed: "agility", numberDisplayed: 4, offset: 1 };
   }
 
   componentDidMount = () => {
-    this.props.getInventory(this.state.numberDisplayed, this.state.offset);
+    this.props.getInventory(
+      this.state.numberDisplayed,
+      this.state.numberDisplayed * this.state.offset
+    );
     this.props.getSportInventory("agility");
-    this.props.getUser();
+    this.props.getUser().then(() => {
+      this.props.user && this.props.getCart();
+    });
   };
   chooseSport = str => {
     console.log(str);
@@ -27,13 +34,64 @@ class Home extends Component {
   };
 
   chooseNumberDisplayed = num => {
-    this.setState({ numberDisplayed: num }, () =>
-      this.props.getInventory(this.state.numberDisplayed, this.state.offset)
+    this.setState({ numberDisplayed: num, offset: 0 }, () =>
+      this.props.getInventory(
+        this.state.numberDisplayed,
+        this.state.numberDisplayed * this.state.offset
+      )
     );
   };
+  choosePage = page => {
+    this.setState(
+      { offset: page },
+      this.props.getInventory(
+        this.state.numberDisplayed,
+        this.state.numberDisplayed * this.state.offset
+      )
+    );
+  };
+  offsetBack = e => {
+    let { offset } = this.state;
 
+    offset === 0
+      ? this.setState({ offset: 0 })
+      : this.setState({ offset: offset - 1 }, () =>
+          this.props.getInventory(
+            this.state.numberDisplayed,
+            this.state.numberDisplayed * this.state.offset
+          )
+        );
+    console.log(offset);
+  };
+  offsetForward = e => {
+    let { offset } = this.state;
+
+    offset === 4
+      ? this.setState({ offset: 4 })
+      : this.setState({ offset: offset + 1 }, () => {
+          this.props.getInventory(
+            this.state.numberDisplayed,
+            this.state.numberDisplayed * this.state.offset
+          );
+        });
+    console.log(offset);
+  };
+  addToCart = (id, num) => {
+    console.log(id, num);
+    this.props.user
+      ? this.props.addToCart(id, num)
+      : Swal({
+          title: "Sign up or Login!",
+          confirmButtonText: "Login",
+          text: "You aren't logged in. Log in to add items to your account!",
+          type: "warning"
+        }).then(() => {
+          console.log(`redirecting...`);
+          window.location.href = process.env.REACT_APP_LOGIN;
+        });
+  };
   render() {
-    console.log(this.state);
+    console.log(this.props);
     return (
       <InventorySection>
         {this.props.loading === true && (
@@ -85,6 +143,8 @@ class Home extends Component {
               this.props.sportInventory.map((product, index) => {
                 return (
                   <Product
+                    user={this.props.user}
+                    addToCart={this.addToCart}
                     className="product"
                     key={index}
                     category={product.category}
@@ -132,10 +192,16 @@ class Home extends Component {
             </div>
           </div>
           <Inventory>
+            <button onClick={e => this.offsetBack(e)}>
+              <i className="fas fa-chevron-circle-left offsets" />
+            </button>
+
             {this.props.inventory &&
               this.props.inventory.map((product, index) => {
                 return (
                   <Product
+                    addToCart={this.addToCart}
+                    user={this.props.user}
                     key={index}
                     category={product.category}
                     description={product.description}
@@ -146,6 +212,9 @@ class Home extends Component {
                   />
                 );
               })}
+            <button onClick={e => this.offsetForward(e)}>
+              <i className="fas fa-chevron-circle-right offsets" />
+            </button>
           </Inventory>
         </div>
       </InventorySection>
@@ -159,13 +228,15 @@ const mapStateToProps = state => {
     inventory: state.inventoryReducer.inventory,
     sportInventory: state.inventoryReducer.sportInventory,
     loading: state.inventoryReducer.isLoading,
-    error: state.inventoryReducer.error
+    error: state.inventoryReducer.error,
+    cart: state.cartReducer.cart,
+    cartid: state.cartReducer.cartid
   };
 };
 
 export default connect(
   mapStateToProps,
-  { getInventory, getSportInventory, getUser }
+  { getInventory, getSportInventory, getUser, getCart, addToCart }
 )(Home);
 
 const InventorySection = styled.div`
@@ -204,13 +275,14 @@ const InventorySection = styled.div`
       & h1 {
         width: 15%;
       }
+
       & .sportOptions,
       .limitOptions {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        margin: 0 20vw 0 0;
-        width: 40%;
+        margin: 0 5vw 0 0;
+        width: 25%;
 
         & .option {
           margin: 0 2vw;
@@ -230,6 +302,13 @@ const Inventory = styled.div`
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
+  & button {
+    border: none;
+    & svg.offsets {
+      font-size: 3rem;
+      color: red;
+    }
+  }
   & h3 {
     font-size: 2rem;
   }

@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+
 const Product = props => {
   return (
     <ProductCard>
@@ -24,7 +25,9 @@ const Product = props => {
           <Link to={`/product/${props.productid}`}>
             <button>More info</button>
           </Link>
-          <button>Add to Card</button>
+          <button onClick={() => props.addToCart(props.productid, 1)}>
+            Add to Card
+          </button>
         </Buttons>
       </div>
     </ProductCard>
@@ -36,20 +39,24 @@ export default Product;
 const ProductCard = styled.div`
   box-sizing: border-box;
   border: 0.5px solid lightgrey;
-  width: 20vw;
+  width: 18vw;
   margin: 2vh 2vw;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  transition: all 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out;
+  position: relative;
+
   &:hover {
     transform: scale(1.1);
+    box-shadow: 0 8px 6px -6px black;
+    position: relative;
   }
 
   & .productMainImage {
     /* box-sizing: border-box; */
-    border-right: 0.5px solid lightgrey;
+    border-right: 0.5px solid grey;
     background: white;
   }
   & .prodDesc {

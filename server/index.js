@@ -19,15 +19,19 @@ const {
   getProduct
 } = require(`${__dirname}/controllers/inventoryController`);
 
+const {
+  getCart,
+  addToCart
+} = require(`${__dirname}/controllers/cartController`);
+
 const port = 3001;
 
 const app = express();
 
 // app.use(express.static(`${__dirname}/../build`));
 
-massive(process.env.CONNECTION_STRING)
-  .then(db => app.set("db", db))
-  .catch(err => console.log(`db`, err));
+massive(process.env.CONNECTION_STRING).then(db => app.set("db", db));
+// .catch(err => console.log(`db`, err));
 
 app.use(json());
 app.use(cors());
@@ -39,7 +43,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      maxAge: 1000 * 60 * 60 * 24 * 14
+      maxAge: 1000000 * 60 * 60 * 24 * 14
     }
   })
 );
@@ -49,7 +53,7 @@ app.use(passport.session());
 passport.use(strategy);
 
 passport.serializeUser((user, done) => {
-  console.log(user);
+  // console.log(user);
   app
     .get("db")
     .auth.getUserByAuthID(user.id)
@@ -64,13 +68,17 @@ passport.serializeUser((user, done) => {
           ])
           .then(res => {
             return done(null, res[0]);
-          })
-          .catch(err => console.log(err));
+          });
+        // .catch(err =>
+        //   console.log(err)
+        // );
       } else {
         return done(null, response[0]);
       }
-    })
-    .catch(err => console.log(err));
+    });
+  // .catch(err =>
+  //   console.log(err)
+  // );
 });
 passport.deserializeUser((user, done) => {
   return done(null, user);
@@ -93,6 +101,10 @@ app.get("/api/me", getUser);
 app.get("/api/inventory", getInventory);
 app.get(`/api/sportinventory`, getInventoryForSport);
 app.get("/api/product", getProduct);
+
+//CART ENDPOINTS
+app.get("/api/cart", getCart);
+app.post("/api/cart/add", addToCart);
 
 // const path = require("path");
 // app.get("*", (req, res) => {
