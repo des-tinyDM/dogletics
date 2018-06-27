@@ -21,7 +21,8 @@ const {
 
 const {
   getCart,
-  addToCart
+  addToCart,
+  updateQty
 } = require(`${__dirname}/controllers/cartController`);
 
 const port = 3001;
@@ -105,6 +106,7 @@ app.get("/api/product", getProduct);
 //CART ENDPOINTS
 app.get("/api/cart", getCart);
 app.post("/api/cart/add", addToCart);
+app.put("/api/cart/update", updateQty);
 
 // const path = require("path");
 // app.get("*", (req, res) => {

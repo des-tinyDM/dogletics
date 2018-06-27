@@ -20,8 +20,8 @@ const Header = props => {
         <Link className="navlink sports" to="/sports">
           <p>Sports</p>
         </Link>
-        <Link className="navlink other" to="/other">
-          <p>Other Thing</p>
+        <Link className="navlink other" to="/">
+          <p>Shop</p>
         </Link>
         <Link className="navlink contact" to="/contact">
           <p>Contact</p>

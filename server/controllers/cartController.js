@@ -61,7 +61,29 @@ addToCart = (req, res) => {
           console.log(err);
         });
 };
+
+const updateQty = (req, res) => {
+  const { cart_id, item_id, quantity } = req.body;
+  console.log(req.body);
+  const db = req.app.get("db");
+
+  quantity === 0
+    ? console.log("remove")
+    : db.cart
+        .updateQty(cart_id, item_id, quantity)
+        .then(cart => {
+          res.status(200).json(cart);
+          console.log(cart[0]);
+        })
+        .catch(err => {
+          console.log(err);
+          res.status(500).json(err);
+        });
+};
+
+const removeFromCart = (req, res) => {};
 module.exports = {
   getCart,
-  addToCart
+  addToCart,
+  updateQty
 };
