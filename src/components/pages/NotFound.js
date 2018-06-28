@@ -13,13 +13,13 @@ const NotFound = props => {
 export default NotFound;
 
 const FourOhFour = styled.div`
-  height: 81vh;
+  height: 87vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
   & img {
-    margin: 1vh 0;
+    margin: 0 0 12vh 0;
     height: 60vh;
   }
   & h1 {

@@ -69,7 +69,7 @@ class CartPage extends Component {
                     <h1>{subtotal}</h1>
                   </div>
                   <div className="pricebox">
-                    <h1>Est. Shipping</h1>
+                    <h1>Shipping</h1>
                     <h1>{shipping}</h1>
                   </div>
                   <div className="pricebox">
@@ -102,9 +102,11 @@ const NoCart = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  height: 80vh;
 
   & img {
-    width: 25%;
+    margin: 5vh auto;
+    width: 30%;
   }
 
   & button {
@@ -118,17 +120,21 @@ const Cart = styled.div`
   justify-content: space-between;
   align-items: center;
   text-align: start;
-
+  & h1 {
+    margin: 0 auto 2vh auto;
+  }
   & thead {
     & h2 {
       text-align: start;
-
+      margin: 1vh auto;
       font-size: 2.5rem;
       border-bottom: 1px solid lightgrey;
     }
   }
   & tfoot {
     border-top: 1px solid lightgrey;
+    display: flex;
+    align-items: center;
   }
   & h1 {
     font-size: 4em;
@@ -156,13 +162,25 @@ const Cart = styled.div`
   .subtotal {
     width: ${45 / 3}vw;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
     & p {
-      height: 100%;
       width: 100%;
+      display: block;
       text-align: center;
       font-size: 2rem;
+      margin: 2vh auto;
+    }
+    & input {
+      width: 100%;
+      display: block;
+      font-size: 2rem;
+      margin: 2vh auto;
+    }
+    & button {
+      display: block;
+      margin: 2vh auto;
     }
   }
 
@@ -179,7 +197,7 @@ const Cart = styled.div`
   & tr td.total {
     height: 25vh;
     margin: 5vh 0;
-    width: 45vw;
+    width: 55vw;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -187,12 +205,17 @@ const Cart = styled.div`
 
     & div.pricebox {
       padding: 2vh 2vw;
-      width: 45vw;
+      width: 35vw;
       display: flex;
       justify-content: space-between;
     }
     & h1 {
       display: inline-block;
+      width: 50%;
+
+      &:last-child {
+        text-align: end;
+      }
     }
   }
 

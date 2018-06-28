@@ -36,38 +36,36 @@ class CartItem extends Component {
           </div>
         </td>
         <td className="qty">
-          <div>
-            {this.state.updateQty ? (
-              <input
-                type="number"
-                value={this.state.quantity}
-                name="quantity"
-                placeholder={this.props.item.quantity}
-                onChange={e =>
-                  this.setState({ quantity: parseInt(e.target.value) })
-                }
-              />
-            ) : (
-              <p>{this.props.item.quantity}</p>
-            )}
-            {this.state.updateQty ? (
-              <QtyButton
-                onClick={e =>
-                  this.updateQuantity(
-                    e,
-                    this.props.item.cart_id,
-                    this.props.item.item_id
-                  )
-                }
-              >
-                Save
-              </QtyButton>
-            ) : (
-              <QtyButton onClick={() => this.setState({ updateQty: true })}>
-                Update Qty
-              </QtyButton>
-            )}
-          </div>
+          {this.state.updateQty ? (
+            <input
+              type="number"
+              value={this.state.quantity}
+              name="quantity"
+              placeholder={this.props.item.quantity}
+              onChange={e =>
+                this.setState({ quantity: parseInt(e.target.value) })
+              }
+            />
+          ) : (
+            <p>{this.props.item.quantity}</p>
+          )}
+          {this.state.updateQty ? (
+            <QtyButton
+              onClick={e =>
+                this.updateQuantity(
+                  e,
+                  this.props.item.cart_id,
+                  this.props.item.item_id
+                )
+              }
+            >
+              Save
+            </QtyButton>
+          ) : (
+            <QtyButton onClick={() => this.setState({ updateQty: true })}>
+              Update Qty
+            </QtyButton>
+          )}
         </td>
         <td className="price">
           <p className="price">{this.props.item.price}</p>
@@ -90,6 +88,8 @@ export default connect(
   mapStateToProps,
   { getCart, updateQuantity }
 )(CartItem);
+
 const QtyButton = styled.button`
   padding: 1vh 2vw;
+  /* width: 100%; */
 `;

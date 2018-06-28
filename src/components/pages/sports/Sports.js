@@ -1,13 +1,24 @@
 import React, { Component } from "react";
 import { PageContainer } from "../../styled/Containers";
+import SportCarousel from "./Carousel";
+import { connect } from "react-redux";
+import { getSportInfo } from "../../../ducks/miscReducer";
 
 class DogSports extends Component {
   constructor(props) {
     super(props);
     this.state = { currentSport: "agility" };
   }
-  componentDidMount() {}
+  selectSport = sport => {
+    this.setState({ currentSport: sport }, () =>
+      this.props.getSportInfo(this.state.currentSport)
+    );
+  };
+  componentDidMount() {
+    this.props.getSportInfo(this.state.currentSport);
+  }
   render() {
+    console.log(this.props);
     return (
       <PageContainer id="sportspage">
         <div>
@@ -23,10 +34,56 @@ class DogSports extends Component {
             looking to compete, or have leisurely fun with your dog, there is a
             sport for you!
           </p>
+          <div className="carouseloptions">
+            <h2
+              onClick={() => this.selectSport("agility")}
+              className={
+                this.state.currentSport === "agility" ? "active" : null
+              }
+            >
+              Agility
+            </h2>
+            <h2
+              onClick={() => this.selectSport("flyball")}
+              className={
+                this.state.currentSport === "flyball" ? "active" : null
+              }
+            >
+              Flyball
+            </h2>
+            <h2
+              onClick={() => this.selectSport("discdog")}
+              className={
+                this.state.currentSport === "discdog" ? "active" : null
+              }
+            >
+              Disc dog (Frisbee)
+            </h2>
+          </div>
+        </div>
+        <div className="carousel">
+          {this.props.sportInfo && (
+            <img
+              src={this.props.sportInfo.images}
+              onError={e => {
+                e.target.src =
+                  "https://discoverthegift.com/wp-content/uploads/2016/03/placeholder.jpg";
+              }}
+            />
+          )}
         </div>
       </PageContainer>
     );
   }
 }
 
-export default DogSports;
+const mapStateToProps = state => {
+  return {
+    sportInfo: state.miscReducer.sportInfo
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { getSportInfo }
+)(DogSports);

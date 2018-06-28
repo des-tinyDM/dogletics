@@ -25,6 +25,8 @@ const {
   updateQty
 } = require(`${__dirname}/controllers/cartController`);
 
+const { getSportInfo } = require(`${__dirname}/controllers/miscController`);
+
 const port = 3001;
 
 const app = express();
@@ -102,6 +104,7 @@ app.get("/api/me", getUser);
 app.get("/api/inventory", getInventory);
 app.get(`/api/sportinventory`, getInventoryForSport);
 app.get("/api/product", getProduct);
+app.get("/api/sport/info", getSportInfo);
 
 //CART ENDPOINTS
 app.get("/api/cart", getCart);

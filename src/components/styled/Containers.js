@@ -3,17 +3,46 @@ import styled from "styled-components";
 export const AppContainer = styled.div``;
 
 export const PageContainer = styled.div`
-  min-height: 78vh;
-  padding: 5vh 0;
+  min-height: 87vh;
+  padding: 2vh 0;
 
   &#sportspage {
+    display: flex;
+    flex-direction: row;
     & div {
       border-right: 1px solid lightgrey;
-      width: 40%;
-      margin: 1vh 2vw;
-      padding: 0 2vw;
+      width: 45vw;
+      margin: 5vh 0vw 1vh 2vw;
+      padding: 0 2vw 0 0;
       height: 72vh;
+
+      & .carouseloptions {
+        margin: none;
+        padding: none;
+        border: none;
+        width: 40vw;
+        height: 12vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        font-size: 1.5rem;
+        & :hover {
+          text-decoration: underline;
+        }
+
+        & .active {
+          font-size: 3rem;
+          text-decoration: underline;
+        }
+      }
     }
+    & div.carousel {
+      width: 55vw;
+      margin: 5vh 2vw;
+      padding: 0 0 0 2vw;
+      border: none;
+    }
+
     & p {
       font-size: 2em;
       text-align: start;
