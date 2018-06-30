@@ -200,8 +200,9 @@ class Home extends Component {
               this.props.inventory.map((product, index) => {
                 return (
                   <Product
-                    addToCart={this.addToCart}
                     user={this.props.user}
+                    addToCart={this.addToCart}
+                    className="product"
                     key={index}
                     category={product.category}
                     description={product.description}
@@ -209,6 +210,7 @@ class Home extends Component {
                     name={product.name}
                     price={product.price}
                     company={product.company}
+                    productid={product.item_id}
                   />
                 );
               })}

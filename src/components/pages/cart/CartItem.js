@@ -1,20 +1,56 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
-import { updateQuantity, getCart } from "../../../ducks/cartReducer";
+import {
+  updateQuantity,
+  getCart,
+  removeFromCart
+} from "../../../ducks/cartReducer";
+import Swal from "sweetalert2";
 
 class CartItem extends Component {
   constructor(props) {
     super(props);
     this.state = { updateQty: false, quantity: this.props.item.quantity };
   }
-  updateQuantity = (e, cart_id, item_id) => {
+  updateQuantity = (e, cart_id, item_id, cartitem_id) => {
+    console.log(cart_id, item_id, cartitem_id);
     e.preventDefault();
-    this.props
-      .updateQuantity(cart_id, item_id, this.state.quantity)
-      .then(() =>
-        this.setState({ updateQty: false }, () => this.props.getCart())
-      );
+    this.state.quantity === 0
+      ? Swal({
+          title: "Do you want to remove this item from your cart?",
+          showCancelButton: true,
+          cancelButtonText: "Keep in Cart",
+          confirmButtonText: "Remove From Cart",
+          text:
+            "If you want to remove this item from your cart, hit Remove From Cart. If you just want to update the quantity of the item, cancel and change the quantity.",
+          type: "warning"
+        }).then(result => {
+          if (result.value) {
+            this.props
+              .removeFromCart(cart_id, cartitem_id)
+              .then(() =>
+                this.setState({ updateQty: false }, () => this.props.getCart())
+              );
+            Swal(
+              "Removed",
+              "The item has been removed from your cart.",
+              "success"
+            );
+          } else if (result.dismiss === Swal.DismissReason.cancel) {
+            this.setState({ updateQty: false }, () =>
+              Swal("Cancelled", "The item is still in your cart.", "error")
+            );
+          }
+        })
+      : this.props
+          .updateQuantity(cart_id, item_id, this.state.quantity)
+          .then(() =>
+            this.setState(
+              { updateQty: false, quantity: this.props.item.quantity },
+              () => this.props.getCart()
+            )
+          );
   };
 
   render() {
@@ -55,7 +91,8 @@ class CartItem extends Component {
                 this.updateQuantity(
                   e,
                   this.props.item.cart_id,
-                  this.props.item.item_id
+                  this.props.item.item_id,
+                  this.props.item.cartitem_id
                 )
               }
             >
@@ -86,7 +123,7 @@ const mapStateToProps = state => {
 };
 export default connect(
   mapStateToProps,
-  { getCart, updateQuantity }
+  { getCart, updateQuantity, removeFromCart }
 )(CartItem);
 
 const QtyButton = styled.button`

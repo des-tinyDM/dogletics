@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { PageContainer } from "../../styled/Containers";
 import { Link } from "react-router-dom";
 import CartItem from "./CartItem";
+import Checkout from "../../../Checkout";
 import { updateQuantity } from "../../../ducks/cartReducer";
 
 class CartPage extends Component {
@@ -11,7 +12,7 @@ class CartPage extends Component {
     super(props);
     this.state = { shipping: 14.99 };
   }
-
+  payForCart = token => {};
   render() {
     console.log(this.props);
     let cartArr = this.props.cart.map((e, i) => {
@@ -26,7 +27,7 @@ class CartPage extends Component {
 
     let { shipping } = this.state;
 
-    let total = subtotal + shipping;
+    let total = (parseInt(subtotal) + parseInt(shipping)).toFixed(2);
     return (
       <PageContainer>
         {!this.props.cart[0] && (
@@ -74,9 +75,15 @@ class CartPage extends Component {
                   </div>
                   <div className="pricebox">
                     <h1>Total</h1>
-                    <h1>
-                      {(parseInt(subtotal) + parseInt(shipping)).toFixed(2)}
-                    </h1>
+                    <h1>{total}</h1>
+                  </div>
+                  <div className="pricebox">
+                    <Checkout
+                      cartid={this.props.cart[0].cart_id}
+                      name="Pay for Cart"
+                      amount={total}
+                      description="Pay for cart..."
+                    />
                   </div>
                 </td>
               </tr>

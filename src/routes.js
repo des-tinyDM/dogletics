@@ -5,6 +5,7 @@ import DogSports from "./components/pages/sports/Sports";
 import ProductPage from "./components/pages/ProductPage";
 import NotFound from "./components/pages/NotFound";
 import CartPage from "./components/pages/cart/Cart";
+import Orders from "./components/pages/payment/Orders";
 
 export default (
   <Switch>
@@ -14,6 +15,7 @@ export default (
     <Route component={About} path="about" /> */}
     <Route component={CartPage} path="/cart" />
     <Route component={ProductPage} path="/product/:id" />
+    <Route component={Orders} path="/orders" />
     <Route component={NotFound} path="*" />
   </Switch>
 );

@@ -2,7 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const { json } = require("body-parser");
 const cors = require("cors");
-
+const path = require("path");
 const session = require("express-session");
 const massive = require("massive");
 const passport = require("passport");
@@ -22,16 +22,27 @@ const {
 const {
   getCart,
   addToCart,
-  updateQty
+  updateQty,
+  removeFromCart,
+  payForCart,
+  getPastOrders
 } = require(`${__dirname}/controllers/cartController`);
 
 const { getSportInfo } = require(`${__dirname}/controllers/miscController`);
+
+// stripe requirements
+const SERVER_CONFIGS = require(`${__dirname}/constants/server`);
+const configureServer = require(`./server`);
+const configureRoutes = require(`./routes/index.js`);
 
 const port = 3001;
 
 const app = express();
 
 // app.use(express.static(`${__dirname}/../build`));
+
+configureServer(app);
+configureRoutes(app);
 
 massive(process.env.CONNECTION_STRING).then(db => app.set("db", db));
 // .catch(err => console.log(`db`, err));
@@ -110,6 +121,11 @@ app.get("/api/sport/info", getSportInfo);
 app.get("/api/cart", getCart);
 app.post("/api/cart/add", addToCart);
 app.put("/api/cart/update", updateQty);
+app.delete(`/api/cart/:cart_id/delete`, removeFromCart);
+app.post(`/api/cart/pay`, payForCart);
+
+//ORDER ENDPOINTS
+app.get("/api/orders", getPastOrders);
 
 // const path = require("path");
 // app.get("*", (req, res) => {

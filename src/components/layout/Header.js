@@ -23,6 +23,9 @@ const Header = props => {
         <Link className="navlink other" to="/">
           <p>Shop</p>
         </Link>
+        <Link className="navlink contact" to="/orders">
+          <p>Orders</p>
+        </Link>
         <Link className="navlink contact" to="/contact">
           <p>Contact</p>
         </Link>
