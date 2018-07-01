@@ -7,7 +7,7 @@ import { getSportInfo } from "../../../ducks/miscReducer";
 class DogSports extends Component {
   constructor(props) {
     super(props);
-    this.state = { currentSport: "agility" };
+    this.state = { currentSport: "agility", photoIndex: 0 };
   }
   selectSport = sport => {
     this.setState({ currentSport: sport }, () =>
@@ -17,13 +17,30 @@ class DogSports extends Component {
   componentDidMount() {
     this.props.getSportInfo(this.state.currentSport);
   }
+  lastPhoto = e => {
+    this.state.photoIndex === 0
+      ? this.setState({ photoIndex: this.props.info.images.length - 1 }, () =>
+          console.log(this.state)
+        )
+      : this.setState({ photoIndex: this.state.photoIndex - 1 });
+  };
+  nextPhoto = () => {
+    this.state.photoIndex === this.props.info.images.length - 1
+      ? this.setState({ photoIndex: 0 })
+      : this.setState({ photoIndex: this.state.photoIndex + 1 });
+  };
   render() {
-    console.log(this.props);
+    console.log(this.props, this.state);
+    let { info } = this.props;
+    let { currentSport, photoIndex } = this.state;
+    {
+      console.log(info, currentSport);
+    }
     return (
       <PageContainer id="sportspage">
         <div>
           <h1>Canine Sports</h1>
-          <p>
+          <p className="sportsBlurb">
             There are a broad range of canine sports that you and your dogs can
             participate in. While many of the sports have human interacting with
             dogs to give direction (e.g., obedience trials, herding trials, and
@@ -34,43 +51,59 @@ class DogSports extends Component {
             looking to compete, or have leisurely fun with your dog, there is a
             sport for you!
           </p>
+          <h1>Choose a Sport:</h1>
           <div className="carouseloptions">
             <h2
               onClick={() => this.selectSport("agility")}
-              className={
-                this.state.currentSport === "agility" ? "active" : null
-              }
+              className={currentSport === "agility" ? "active" : null}
             >
               Agility
             </h2>
+            {info && currentSport === "agility" && <p>{info.description}</p>}
             <h2
               onClick={() => this.selectSport("flyball")}
-              className={
-                this.state.currentSport === "flyball" ? "active" : null
-              }
+              className={currentSport === "flyball" ? "active" : null}
             >
               Flyball
             </h2>
+            {info && currentSport === "flyball" && <p>{info.description}</p>}
             <h2
               onClick={() => this.selectSport("discdog")}
-              className={
-                this.state.currentSport === "discdog" ? "active" : null
-              }
+              className={currentSport === "discdog" ? "active" : null}
             >
               Disc dog (Frisbee)
             </h2>
+            {info && currentSport === "discdog" && <p>{info.description}</p>}
           </div>
         </div>
         <div className="carousel">
-          {this.props.sportInfo && (
-            <img
-              src={this.props.sportInfo.images}
-              onError={e => {
-                e.target.src =
-                  "https://discoverthegift.com/wp-content/uploads/2016/03/placeholder.jpg";
-              }}
-            />
-          )}
+          <h1 id="carouseltitle">{currentSport} slideshow</h1>
+          <div className="photocontainer">
+            <span className="carouselicon" onClick={e => this.lastPhoto(e)}>
+              <i
+                onClick={e => this.lastPhoto(e)}
+                className="fas fa-chevron-circle-left"
+              />
+            </span>
+
+            {info &&
+              info.images && (
+                <img
+                  src={info.images[photoIndex]}
+                  onError={e => {
+                    e.target.src =
+                      "https://discoverthegift.com/wp-content/uploads/2016/03/placeholder.jpg";
+                  }}
+                />
+              )}
+            <button onClick={() => this.nextPhoto()}>
+              <i className="fas fa-chevron-circle-right fa-lg" />
+            </button>
+          </div>
+          <div className="photoDesc">
+            <h2>Image Description</h2>
+            {info.img_desc && info.img_desc[photoIndex]}
+          </div>
         </div>
       </PageContainer>
     );
@@ -79,7 +112,7 @@ class DogSports extends Component {
 
 const mapStateToProps = state => {
   return {
-    sportInfo: state.miscReducer.sportInfo
+    info: state.miscReducer.sportInfo
   };
 };
 

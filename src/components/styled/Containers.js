@@ -15,32 +15,73 @@ export const PageContainer = styled.div`
       margin: 5vh 0vw 1vh 2vw;
       padding: 0 2vw 0 0;
       height: 72vh;
-
+      font-size: 2rem;
+      text-align: center;
+      & > p.sportsBlurb {
+        padding: 0 5vw;
+      }
       & .carouseloptions {
-        margin: none;
-        padding: none;
+        margin: 5vh 5vw;
+        padding: 0 10vw 0 0;
         border: none;
         width: 40vw;
         height: 12vh;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        font-size: 1.5rem;
-        & :hover {
-          text-decoration: underline;
+        text-align: center;
+        & h2 {
+          font-size: 3rem;
         }
 
-        & .active {
-          font-size: 3rem;
+        & h2:hover {
+          text-decoration: underline;
+        }
+        & h2.active {
+          font-size: 6rem;
           text-decoration: underline;
         }
       }
     }
     & div.carousel {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      height: inherit;
       width: 55vw;
       margin: 5vh 2vw;
       padding: 0 0 0 2vw;
       border: none;
+      position: relative;
+      & .photoDesc {
+        height: 10vh;
+        border-right: none;
+      }
+      & .photocontainer {
+        border-right: none;
+        display: flex;
+        align-items: center;
+        height: 40vh;
+        /* justify-content: center; */
+      }
+      & img {
+        min-height: 40vh;
+        height: 50vh;
+        max-width: 90%;
+        margin: 10vh auto;
+      }
+      & h1 {
+        text-transform: uppercase;
+      }
+      & div.carouselicon {
+        position: absolute;
+        top: 15vh;
+        font-size: 24px;
+        & svg {
+          font-size: 2em;
+        }
+      }
     }
 
     & p {
