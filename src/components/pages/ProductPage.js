@@ -17,10 +17,12 @@ class ProductPage extends Component {
       <FullProduct>
         <div className="imagesContainer">
           {product.images && (
-            <img
-              className="bigImage"
-              src={product.images[this.state.imageIndex]}
-            />
+            <div className="bigImageContainer">
+              <img
+                className="bigImage"
+                src={product.images[this.state.imageIndex]}
+              />
+            </div>
           )}
           <div className="allImages">
             {product.images &&
@@ -59,6 +61,7 @@ class ProductPage extends Component {
     );
   }
 }
+
 const mapStateToProps = state => {
   return {
     product: state.inventoryReducer.product
@@ -72,31 +75,42 @@ export default connect(
 const FullProduct = styled.div`
   display: flex;
   flex-direction: row;
-
+  height: 88vh;
+  padding: 2vh 0;
   & .imagesContainer {
     height: 77vh;
     margin: 2.5vh 0 0 5vw;
     width: 55vw;
     border: 1px solid lightgrey;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  & .bigImageContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 63vh;
   }
   & img.bigImage {
     max-width: 50vw;
     height: 50vh;
     margin: 0 auto;
+    vertical-align: center;
   }
   & div.allImages {
     border: 1px solid lightgrey;
+    border-left: none;
+    border-right: none;
     display: flex;
     align-items: center;
     overflow-x: scroll;
     width: 50vw;
     height: 15vh;
     margin: 0 auto;
-
     & .container {
       position: relative;
     }
-
     & .smallImage {
       max-height: 9vh;
       margin: 0 1vw;
@@ -106,7 +120,6 @@ const FullProduct = styled.div`
       transition: 0.5s ease;
       backface-visibility: hidden;
     }
-
     & .middle {
       transition: 0.5s ease;
       opacity: 0;
@@ -120,11 +133,9 @@ const FullProduct = styled.div`
     & .container:hover .image {
       opacity: 0.3;
     }
-
     & .container:hover .middle {
       opacity: 1;
     }
-
     & .text {
       background-color: black;
       opacity: 0.3;
@@ -133,14 +144,12 @@ const FullProduct = styled.div`
       padding: 1vh 1vw;
     }
   }
-
   & .descriptionContainer {
     height: 77vh;
     width: 40vw;
     margin: 2.5vh 5vw;
     border: 1px solid lightgrey;
     padding: 2vh 2vw;
-
     & h1 {
       border: 1px solid lightgrey;
       margin: 0 0 1vh 0;

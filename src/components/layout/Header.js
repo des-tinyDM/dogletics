@@ -14,17 +14,17 @@ const Header = props => {
         <img src={logo} />
       </div>
       <div className="symmetry">
-        <Link className="navlink about" to="/about">
-          <p>About Us</p>
+        <Link className="navlink other" to="/">
+          <p>Shop</p>
         </Link>
         <Link className="navlink sports" to="/sports">
           <p>Sports</p>
         </Link>
-        <Link className="navlink other" to="/">
-          <p>Shop</p>
-        </Link>
         <Link className="navlink contact" to="/orders">
           <p>Orders</p>
+        </Link>
+        <Link className="navlink about" to="/about">
+          <p>About Us</p>
         </Link>
         <Link className="navlink contact" to="/contact">
           <p>Contact</p>
@@ -87,7 +87,7 @@ const ItemsInCart = styled.div`
   & h1 {
     height: 40px;
     width: 40px;
-    font-size: 30px;
+    font-size: 3rem;
     align-self: center;
     line-height: 40px;
     border-radius: 50%;

@@ -3,7 +3,8 @@ import Sidebar from "../../layout/Sidebar";
 import { connect } from "react-redux";
 import {
   getInventory,
-  getSportInventory
+  getSportInventory,
+  getCategories
 } from "../../../ducks/inventoryReducer";
 import { getUser } from "../../../ducks/userReducer";
 import { getCart, addToCart } from "../../../ducks/cartReducer";
@@ -15,7 +16,7 @@ import { PageContainer } from "../../styled/Containers";
 class Home extends Component {
   constructor(props) {
     super(props);
-    this.state = { sportDisplayed: "agility", numberDisplayed: 4, offset: 1 };
+    this.state = { category: "agility", numberDisplayed: 4, offset: 0 };
   }
 
   componentDidMount = () => {
@@ -23,6 +24,7 @@ class Home extends Component {
       this.state.numberDisplayed,
       this.state.numberDisplayed * this.state.offset
     );
+    this.props.getCategories();
     this.props.getSportInventory("agility");
     this.props.getUser().then(() => {
       this.props.user && this.props.getCart();
@@ -31,7 +33,7 @@ class Home extends Component {
   chooseSport = str => {
     console.log(str);
     this.props.getSportInventory(str);
-    this.setState({ sportDisplayed: str });
+    this.setState({ category: str });
   };
 
   chooseNumberDisplayed = num => {
@@ -55,7 +57,7 @@ class Home extends Component {
     let { offset } = this.state;
 
     offset === 0
-      ? this.setState({ offset: 0 })
+      ? this.setState(({ offset }) => ({ offset: 0 }))
       : this.setState({ offset: offset - 1 }, () =>
           this.props.getInventory(
             this.state.numberDisplayed,
@@ -93,40 +95,27 @@ class Home extends Component {
   };
   render() {
     console.log(this.props);
+
+    let categoryOptions = this.props.categories.map((cat, i) => {
+      return (
+        <h3
+          className={`option
+          ${this.state.category === cat.category && "current"}
+          `}
+          onClick={() => this.chooseSport(cat.category)}
+        >
+          {cat.category}
+        </h3>
+      );
+    });
     return (
       <PageContainer>
         {/* <h1 className="sectionTitle">Hot Items</h1>
         <div>list of items here</div> */}
-        <div className="sports">
-          <div className="sports Header">
-            <h1 className="sectionTitle">By Sport</h1>
-            <div className="sportOptions">
-              <h3
-                className={`option
-                  ${this.state.sportDisplayed === "agility" && "current"}
-                  `}
-                onClick={() => this.chooseSport("agility")}
-              >
-                Agility
-              </h3>
-
-              <h3
-                className={`option
-                  ${this.state.sportDisplayed === "flyball" && "current"}
-                  `}
-                onClick={() => this.chooseSport("flyball")}
-              >
-                Flyball
-              </h3>
-              <h3
-                className={`option
-                  ${this.state.sportDisplayed === "discdog" && "current"}
-                  `}
-                onClick={() => this.chooseSport("discdog")}
-              >
-                Disc dog
-              </h3>
-            </div>
+        <InventorySection>
+          <div className="invHeader">
+            <h1 className="sectionTitle">By Category</h1>
+            <div className="options">{categoryOptions}</div>
           </div>
           <Inventory id="sports">
             {this.props.sportInventory &&
@@ -148,11 +137,11 @@ class Home extends Component {
                 );
               })}
           </Inventory>
-        </div>
-        <div className="inventory">
-          <div className="inventoryHeader">
+        </InventorySection>
+        <InventorySection>
+          <div className="invHeader">
             <h1 className="sectionTitle">All Inventory</h1>
-            <div className="limitOptions">
+            <div className="options">
               <h3
                 className={`option
                   ${this.state.numberDisplayed === 4 && "current"}
@@ -208,7 +197,7 @@ class Home extends Component {
               <i className="fas fa-chevron-circle-right offsets" />
             </button>
           </Inventory>
-        </div>
+        </InventorySection>
       </PageContainer>
     );
   }
@@ -222,23 +211,59 @@ const mapStateToProps = state => {
     loading: state.inventoryReducer.isLoading,
     error: state.inventoryReducer.error,
     cart: state.cartReducer.cart,
-    cartid: state.cartReducer.cartid
+    cartid: state.cartReducer.cartid,
+    categories: state.inventoryReducer.categories
   };
 };
 
 export default connect(
   mapStateToProps,
-  { getInventory, getSportInventory, getUser, getCart, addToCart }
+  {
+    getInventory,
+    getSportInventory,
+    getUser,
+    getCart,
+    addToCart,
+    getCategories
+  }
 )(Home);
 
 const InventorySection = styled.div`
-  /* display: flex;
-  flex-direction: row;
-  flex-wrap: wrap; */
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
 
-  & div {
+  & .invHeader {
+    padding: 0vh 5vw;
+    height: 5vh;
+    width: 100vw;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 24px;
+    background: black;
+    color: white;
+    & h1 {
+      font-size: 6rem;
+    }
+    & h3 {
+      font-size: 3rem;
+      text-transform: capitalize;
+      &.current {
+        text-decoration: underline;
+      }
+    }
+    & .options {
+      display: flex;
+      flex-direction: row;
+      width: 60vh;
+      justify-content: space-around;
+    }
+  }
+  & div {
+    /* display: flex;
+    flex-direction: column; */
 
     & .Header {
       width: 100vw;
@@ -248,5 +273,9 @@ const InventorySection = styled.div`
 
 const Inventory = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 2vh auto;
+  flex-wrap: wrap;
 `;

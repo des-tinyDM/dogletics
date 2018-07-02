@@ -79,8 +79,6 @@ class Orders extends Component {
           )}
         {this.props.user === undefined && (
           <NoUser>
-            <h1>Who are you?</h1>
-            <p>Login to view your past orders.</p>
             <img
               src="http://www.highlandcanine.com/wp-content/uploads/2013/12/tracking-dog.jpg"
               onError={e => {
@@ -88,6 +86,11 @@ class Orders extends Component {
                   "https://discoverthegift.com/wp-content/uploads/2016/03/placeholder.jpg";
               }}
             />
+            <h1>Who are you?</h1>
+            <p>Login to view your past orders.</p>
+            <a className="navlink login" href={process.env.REACT_APP_LOGIN}>
+              <button>Login</button>
+            </a>
           </NoUser>
         )}
       </PageContainer>
@@ -126,4 +129,22 @@ const OrdersTable = styled.table`
   }
 `;
 
-const NoUser = styled.div``;
+const NoUser = styled.div`
+  & h1 {
+    font-size: 8em;
+    margin: 0 auto 1vh auto;
+  }
+  & p {
+    font-size: 7em;
+    margin: 0 auto 1vh auto;
+  }
+  & img {
+    margin: 5vh auto;
+    width: 40vw;
+  }
+  & button {
+    margin: 3vh auto;
+    padding: 1vh 2vw;
+    font-size: 4rem;
+  }
+`;

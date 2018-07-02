@@ -43,8 +43,24 @@ const getProduct = (req, res) => {
     });
 };
 
+const getCategories = (req, res) => {
+  const db = req.app.get("db");
+
+  db.inventory
+    .getCategories()
+    .then(categories => {
+      res.status(200).json(categories);
+      console.log(categories);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+};
+
 module.exports = {
   getInventory,
   getInventoryForSport,
-  getProduct
+  getProduct,
+  getCategories
 };

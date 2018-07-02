@@ -4,7 +4,7 @@ export const AppContainer = styled.div``;
 
 export const PageContainer = styled.div`
   min-height: 87vh;
-  padding: 2vh 0;
+  padding: 0 0;
 
   &#sportspage {
     display: flex;
@@ -241,9 +241,10 @@ export const StyledHeader = styled.div`
         align-items: center;
         justify-content: space-around;
         width: 6vw;
-        font-size: 2.5rem;
+        font-size: 4rem;
         text-decoration: none;
         color: black;
+
         &:hover {
           text-decoration: underline;
         }
@@ -254,6 +255,7 @@ export const StyledHeader = styled.div`
           border-right: 1px solid lightgray;
         }
         &.cart {
+          margin-left: 0.5vw;
           justify-content: center;
           width: 4vw;
           &:hover,
@@ -262,7 +264,7 @@ export const StyledHeader = styled.div`
           }
         }
         & svg {
-          margin: 0 0.5vw;
+          margin: 0 1vw;
         }
       }
     }
@@ -278,7 +280,7 @@ export const StyledHeader = styled.div`
         align-items: center;
         justify-content: center;
         width: 10vw;
-        font-size: 2.5rem;
+        font-size: 4rem;
         text-decoration: none;
         color: black;
         &:hover {

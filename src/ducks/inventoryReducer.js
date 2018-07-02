@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const initialState = {
+  categories: [],
   inventory: [],
   sportList: [],
   sportInventory: [],
@@ -14,6 +15,7 @@ const GET_INVENTORY = "GET_INVENTORY";
 const GET_SPORTS_LIST = "GET_SPORTS_LIST";
 const GET_INVENTORY_SPORT = "GET_INVENTORY_SPORT";
 const GET_PRODUCT = "GET_PRODUCT";
+const GET_CATEGORIES = "GET_CATEGORIES";
 
 export function getInventory(limit, offset) {
   return {
@@ -63,6 +65,18 @@ export function getSportList() {
       .catch(err => console.log(err))
   };
 }
+export function getCategories() {
+  return {
+    type: GET_CATEGORIES,
+    payload: axios
+      .get("/api/inventory/categories")
+      .then(results => {
+        return results.data;
+        console.log(results.data);
+      })
+      .catch(err => console.log(err))
+  };
+}
 
 export default function inventoryReducer(state = initialState, action) {
   // console.log(action.type, action.payload);
@@ -72,6 +86,7 @@ export default function inventoryReducer(state = initialState, action) {
     case `${GET_SPORTS_LIST}_PENDING`:
     case `${GET_INVENTORY_SPORT}_PENDING`:
     case `${GET_PRODUCT}_PENDING`:
+    case `${GET_CATEGORIES}_PENDING`:
       return {
         ...state,
         isLoading: true
@@ -86,12 +101,15 @@ export default function inventoryReducer(state = initialState, action) {
       return { ...state, sportInventory: action.payload, isLoading: false };
     case `${GET_PRODUCT}_FULFILLED`:
       return { ...state, product: action.payload, isLoading: false };
+    case `${GET_CATEGORIES}_FULFILLED`:
+      return { ...state, categories: action.payload, isLoading: false };
 
     //REJECTED CASES
     case `${GET_INVENTORY}_REJECTED`:
     case `${GET_SPORTS_LIST}_REJECTED`:
     case `${GET_PRODUCT}_REJECTED`:
     case `${GET_INVENTORY_SPORT}_REJECTED`:
+    case `${GET_CATEGORIES}_REJECTED`:
       return {
         ...state,
         error: "ERROR",

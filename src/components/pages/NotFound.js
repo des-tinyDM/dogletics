@@ -5,7 +5,7 @@ const NotFound = props => {
   return (
     <FourOhFour>
       <img src="http://www.qme-agility.co.uk/assets/slider/new-3-qme-agility.jpg" />
-      <h1>404 Error: Path not Found.</h1>
+      <h1>Rut roh: Path not Found.</h1>
     </FourOhFour>
   );
 };
@@ -17,10 +17,11 @@ const FourOhFour = styled.div`
   display: flex;
   flex-direction: column;
   /* justify-content: center; */
-  align-items: center;
+  align-items: space-between;
   & img {
-    margin: 0 0 12vh 0;
+    margin: 5vh auto 8vh auto;
     height: 60vh;
+    max-width: 90vw;
   }
   & h1 {
     margin: 1vh 0;

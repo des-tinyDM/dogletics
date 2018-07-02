@@ -16,7 +16,8 @@ const {
 const {
   getInventory,
   getInventoryForSport,
-  getProduct
+  getProduct,
+  getCategories
 } = require(`${__dirname}/controllers/inventoryController`);
 
 const {
@@ -102,7 +103,7 @@ passport.deserializeUser((user, done) => {
 app.get(
   `/auth`,
   passport.authenticate("auth0", {
-    successRedirect: "http://localhost:3000/",
+    successRedirect: "http://localhost:3000/about",
     failureRedirect: "http://localhost:3001/auth"
   })
 );
@@ -116,6 +117,7 @@ app.get("/api/inventory", getInventory);
 app.get(`/api/sportinventory`, getInventoryForSport);
 app.get("/api/product", getProduct);
 app.get("/api/sport/info", getSportInfo);
+app.get("/api/inventory/categories", getCategories);
 
 //CART ENDPOINTS
 app.get("/api/cart", getCart);
