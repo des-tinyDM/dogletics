@@ -209,13 +209,26 @@ const Cart = styled.div`
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    & div:nth-child(4) > button {
+      background: red;
+    }
 
     & div.pricebox {
       padding: 2vh 2vw;
       width: 35vw;
       display: flex;
       justify-content: space-between;
+
+      & button.StripeCheckout {
+        height: 100%;
+        & span {
+          height: auto !important;
+          width: 400px !important;
+          padding: 1vh 2vw !important;
+        }
+      }
     }
+
     & h1 {
       display: inline-block;
       width: 50%;
