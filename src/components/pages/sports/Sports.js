@@ -51,7 +51,7 @@ class DogSports extends Component {
             looking to compete, or have leisurely fun with your dog, there is a
             sport for you!
           </p>
-          <h1>Choose a Sport:</h1>
+          <h1 className="chooseASport">Choose a Sport:</h1>
           <div className="carouseloptions">
             <h2
               onClick={() => this.selectSport("agility")}

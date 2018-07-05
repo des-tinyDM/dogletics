@@ -20,6 +20,9 @@ export const PageContainer = styled.div`
       & > p.sportsBlurb {
         padding: 0 5vw;
       }
+      & h1.chooseASport {
+        margin: 10vh 0 0 0;
+      }
       & .carouseloptions {
         margin: 5vh 5vw;
         padding: 0 10vw 0 0;
@@ -74,23 +77,24 @@ export const PageContainer = styled.div`
       & h1 {
         text-transform: uppercase;
       }
+
       & div.carouselicon {
         position: absolute;
         top: 15vh;
         font-size: 24px;
         & svg {
-          font-size: 2em;
+          font-size: 2rem;
         }
       }
     }
 
     & p {
-      font-size: 2em;
+      font-size: 2rem;
       text-align: start;
-      text-indent: 2em;
+      text-indent: 2rem;
     }
     & h1 {
-      font-size: 5em;
+      font-size: 5rem;
       margin: 1vh 0;
       /* text-align: start; */
     }

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Sidebar from "../../layout/Sidebar";
 import { connect } from "react-redux";
 import {
   getInventory,
