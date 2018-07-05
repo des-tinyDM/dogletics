@@ -219,9 +219,6 @@ export const FooterContainer = styled.div`
 `;
 
 export const StyledHeader = styled.div`
-  @media only screen and (min-width: 321px) {
-  }
-
   @media only screen and (min-width: 1224px) {
     display: flex;
     padding: 1vh 0;
@@ -237,15 +234,14 @@ export const StyledHeader = styled.div`
       padding: 1vw 5vw;
 
       & img {
-        max-width: 100%;
-        max-height: 100%;
+        max-height: 80%;
       }
       & .navlink {
         display: flex;
         align-items: center;
         justify-content: space-around;
         width: 6vw;
-        font-size: 4rem;
+        font-size: 24px;
         text-decoration: none;
         color: black;
 
@@ -284,7 +280,7 @@ export const StyledHeader = styled.div`
         align-items: center;
         justify-content: center;
         width: 10vw;
-        font-size: 4rem;
+        font-size: 24px;
         text-decoration: none;
         color: black;
         &:hover {
