@@ -97,10 +97,10 @@ passport.deserializeUser((user, done) => {
 app.get(
   `/auth`,
   passport.authenticate("auth0", {
-    successRedirect: "http://localhost:3001/",
-    failureRedirect: "http://localhost:3001/auth",
-    // successRedirect: "http://shopdogletics.destinylross-apps.com",
-    // failureRedirect: "http://shopdogletics.destinylross-apps.com/auth"
+    // successRedirect: "http://localhost:3001/",
+    // failureRedirect: "http://localhost:3001/auth",
+    successRedirect: "http://shopdogletics.destinylross-apps.com",
+    failureRedirect: "http://shopdogletics.destinylross-apps.com/auth"
   })
 );
 

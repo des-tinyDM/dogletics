@@ -38,7 +38,7 @@ const onToken = (amount, description, cartid) => token => {
     .then(() =>
       axios.post(`/api/cart/pay`, { cartid, amount }).then(() =>
         setTimeout(function () {
-          window.location.href = "http://localhost:3000/orders";
+          window.location.href = "http://shopdogletics.destinylross-apps.com/orders";
         }, 2000)
       )
     )
