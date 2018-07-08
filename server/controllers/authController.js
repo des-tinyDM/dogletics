@@ -10,7 +10,7 @@ const strategy = new Auth0Strategy(
     scope: "openid profile",
     callbackURL: "/auth"
   },
-  function(accessToken, refreshToken, extraParams, profile, done) {
+  function (accessToken, refreshToken, extraParams, profile, done) {
     return done(null, profile);
   }
 );
@@ -37,7 +37,7 @@ const getUser = (req, res) => {
 
 const logout = (req, res) => {
   req.session.destroy(() => {
-    res.redirect("http://localhost:3000/");
+    res.redirect("http://shopdogletics.destinylross-apps.com");
   });
 };
 
