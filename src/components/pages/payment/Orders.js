@@ -120,22 +120,22 @@ const OrdersTable = styled.table`
   }
   & td,
   th {
-    font-size: 2rem;
+    font-size: 20px;
     width: 100%;
     border: 1px solid lightgrey;
   }
   & .colTitle {
-    font-size: 3rem;
+    font-size: 24px;
   }
 `;
 
 const NoUser = styled.div`
   & h1 {
-    font-size: 36px;
+    font-size: 24px;
     margin: 0 auto 1vh auto;
   }
   & p {
-    font-size: 30px;
+    font-size: 20px;
     margin: 0 auto 1vh auto;
   }
   & img {
@@ -145,6 +145,6 @@ const NoUser = styled.div`
   & button {
     margin: 3vh auto;
     padding: 1vh 2vw;
-    font-size: 30px;
+    font-size: 24px;
   }
 `;

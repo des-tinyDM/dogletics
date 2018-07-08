@@ -247,7 +247,7 @@ const InventorySection = styled.div`
       font-size: 24px;
     }
     & h3 {
-      font-size: 20px;
+      font-size: 15px;
       text-transform: capitalize;
       &.current {
         text-decoration: underline;
@@ -256,14 +256,11 @@ const InventorySection = styled.div`
     & .options {
       display: flex;
       flex-direction: row;
-      width: 60vh;
-      justify-content: space-around;
+      width: 70vh;
+      justify-content: space-between;
     }
   }
   & div {
-    /* display: flex;
-    flex-direction: column; */
-
     & .Header {
       width: 100vw;
     }
@@ -277,9 +274,12 @@ const Inventory = styled.div`
   align-items: center;
   margin: 2vh auto;
   flex-wrap: wrap;
-
+ & button {
+   border:none;
+ }
   & .offsets {
     font-size:24px;
+    
   }
 `;
 

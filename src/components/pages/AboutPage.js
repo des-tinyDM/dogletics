@@ -29,12 +29,13 @@ const AboutPage = () => (
         Auth0 and Stripe libraries were used for user authentication and payment
         micro-services, respectfully.
       </p>
-      <div>{photoarr.map((e, i) => <img src={e} />)}</div>
       <p>
-        The website is a fully functional MVP for an e-commerce site, where
+        This website is a fully functional MVP for an e-commerce site, where
         users can log in, add, remove, or change the quantity of items to their
-        cart, pay for their items and see a summary of their past orders.
+        cart, pay for their items and see a summary of their past orders. If the
+        user is admin, they can also add products, edit descriptions, and remove products from their inventory.
       </p>
+      <div>{photoarr.map((e, i) => <img src={e} />)}</div>
     </Disclaimer>
   </PageContainer>
 );
@@ -44,13 +45,13 @@ const Disclaimer = styled.div`
   & h1 {
     padding: 0 5vw;
 
-    margin: 5vh auto;
-    font-size: 6em;
+    margin: 2vh auto;
+    font-size: 24px;
   }
   & p {
     padding: 0 5vw;
-    margin: 5vh auto;
-    font-size: 6em;
+    margin: 2vh auto;
+    font-size: 18px;
   }
   & div {
     display: flex;
@@ -58,8 +59,8 @@ const Disclaimer = styled.div`
     justify-content: center;
     align-items: center;
     & img {
-      width: 1000px;
-      margin: 0 2vw;
+      width: 300px;
+      margin: 2vh 2vw;
     }
   }
 `;

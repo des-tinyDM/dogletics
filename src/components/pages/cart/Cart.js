@@ -12,7 +12,7 @@ class CartPage extends Component {
     super(props);
     this.state = { shipping: 14.99 };
   }
-  payForCart = token => {};
+  payForCart = token => { };
   render() {
     console.log(this.props);
     let cartArr = this.props.cart.map((e, i) => {
@@ -20,7 +20,7 @@ class CartPage extends Component {
     });
 
     let subtotal = this.props.cart
-      .reduce(function(sum, value) {
+      .reduce(function (sum, value) {
         return sum + value.price * value.quantity;
       }, 0)
       .toFixed(2);
@@ -41,7 +41,7 @@ class CartPage extends Component {
         )}
         {this.props.cart[0] && (
           <Cart>
-            <h1>Cart</h1>
+            <h1 id="cartTitle">{this.props.user.first_name}'s Cart</h1>
             <table>
               <thead>
                 <tr>
@@ -96,7 +96,8 @@ class CartPage extends Component {
 }
 const mapStateToProps = state => {
   return {
-    cart: state.cartReducer.cart
+    cart: state.cartReducer.cart,
+    user: state.userReducer.user
   };
 };
 export default connect(
@@ -107,17 +108,22 @@ export default connect(
 const NoCart = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   height: 80vh;
 
   & img {
-    margin: 5vh auto;
-    width: 30%;
+    margin: 2vh auto;
+    max-height:70%;
   }
-
+ & h1 {
+   font-size:24px;
+margin:2vh auto;
+ }
   & button {
     padding: 1vh 2vw;
+    margin:2vh auto;
+    border-radius:4px;
   }
 `;
 
@@ -129,12 +135,13 @@ const Cart = styled.div`
   text-align: start;
   & h1 {
     margin: 0 auto 2vh auto;
+    font-size:30px;
   }
   & thead {
     & h2 {
       text-align: start;
       margin: 1vh auto;
-      font-size: 2.5rem;
+      font-size: 20px;
       border-bottom: 1px solid lightgrey;
     }
   }
@@ -144,9 +151,11 @@ const Cart = styled.div`
     align-items: center;
   }
   & h1 {
-    font-size: 4em;
+    font-size: 20px;
   }
-
+& h1#cartTitle {
+  margin:2vh auto 10vh auto;
+}
   & .colTitle {
     text-transform: uppercase;
     width: 100%;
@@ -159,7 +168,7 @@ const Cart = styled.div`
     text-align: center;
     width: 50vw;
     & p {
-      font-size: 2rem;
+      font-size: 18px;
       width: 100%;
     }
   }
@@ -176,18 +185,19 @@ const Cart = styled.div`
       width: 100%;
       display: block;
       text-align: center;
-      font-size: 2rem;
+      font-size: 18px;
       margin: 2vh auto;
     }
     & input {
       width: 100%;
       display: block;
-      font-size: 2rem;
+      font-size: 18px;
       margin: 2vh auto;
     }
     & button {
       display: block;
       margin: 2vh auto;
+      background:none;
     }
   }
 

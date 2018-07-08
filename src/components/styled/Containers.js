@@ -114,6 +114,9 @@ export const FooterContainer = styled.div`
     text-align: start;
     & div {
       padding: 0 2vw;
+      & h1 {
+        font-size:24px;
+      }
     }
     & .one {
       width: 20%;
@@ -121,7 +124,7 @@ export const FooterContainer = styled.div`
       flex-direction: column;
 
       & a {
-        font-size: 24px;
+        font-size: 20px;
         margin: 0.5vh 0;
       }
       & :first-child {
@@ -134,7 +137,7 @@ export const FooterContainer = styled.div`
       flex-direction: column;
 
       & a {
-        font-size: 24px;
+        font-size: 20px;
         margin: 0.5vh 0;
       }
       & :first-child {
@@ -147,7 +150,7 @@ export const FooterContainer = styled.div`
       flex-direction: column;
 
       & a {
-        font-size: 24px;
+        font-size: 20px;
         margin: 0.5vh 0;
       }
       & :first-child {
@@ -188,7 +191,7 @@ export const FooterContainer = styled.div`
       }
       & .icons {
         width:28vw;
-        font-size: 36px;
+        font-size: 24px;
         justify-content:space-between;
         & * {
           /* margin: 0 0.5vw; */
@@ -204,7 +207,7 @@ export const FooterContainer = styled.div`
         padding:0;
 
         & p {
-          font-size: 24px;
+          font-size: 20px;
         }
 
       & div.policies {
