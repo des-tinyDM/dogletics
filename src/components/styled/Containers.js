@@ -9,22 +9,22 @@ export const PageContainer = styled.div`
   &#sportspage {
     display: flex;
     flex-direction: row;
-    & div {
+    & div.sportInfo {
       border-right: 1px solid lightgrey;
       width: 45vw;
       margin: 5vh 0vw 1vh 2vw;
       padding: 0 2vw 0 0;
-      height: 72vh;
-      font-size: 2rem;
+      height: 80vh;
       text-align: center;
       & > p.sportsBlurb {
         padding: 0 5vw;
       }
       & h1.chooseASport {
-        margin: 10vh 0 0 0;
+        margin: 4vh 0 0 0;
+        font-size: 24px;
       }
       & .carouseloptions {
-        margin: 5vh 5vw;
+        margin: 2vh 5vw;
         padding: 0 10vw 0 0;
         border: none;
         width: 40vw;
@@ -34,14 +34,14 @@ export const PageContainer = styled.div`
         justify-content: space-between;
         text-align: center;
         & h2 {
-          font-size: 3rem;
+          font-size:24px;
         }
 
         & h2:hover {
           text-decoration: underline;
         }
         & h2.active {
-          font-size: 6rem;
+          font-size: 30px;
           text-decoration: underline;
         }
       }
@@ -54,7 +54,7 @@ export const PageContainer = styled.div`
       height: inherit;
       width: 55vw;
       margin: 5vh 2vw;
-      padding: 0 0 0 2vw;
+
       border: none;
       position: relative;
       & .photoDesc {
@@ -83,18 +83,18 @@ export const PageContainer = styled.div`
         top: 15vh;
         font-size: 24px;
         & svg {
-          font-size: 2rem;
+          font-size: 24px;
         }
       }
     }
 
     & p {
-      font-size: 2rem;
+      font-size: 20px;
       text-align: start;
       text-indent: 2rem;
     }
     & h1 {
-      font-size: 5rem;
+      font-size: 24px;
       margin: 1vh 0;
       /* text-align: start; */
     }
@@ -121,7 +121,7 @@ export const FooterContainer = styled.div`
       flex-direction: column;
 
       & a {
-        font-size: 2rem;
+        font-size: 24px;
         margin: 0.5vh 0;
       }
       & :first-child {
@@ -134,7 +134,7 @@ export const FooterContainer = styled.div`
       flex-direction: column;
 
       & a {
-        font-size: 2rem;
+        font-size: 24px;
         margin: 0.5vh 0;
       }
       & :first-child {
@@ -147,7 +147,7 @@ export const FooterContainer = styled.div`
       flex-direction: column;
 
       & a {
-        font-size: 2rem;
+        font-size: 24px;
         margin: 0.5vh 0;
       }
       & :first-child {
@@ -188,7 +188,7 @@ export const FooterContainer = styled.div`
       }
       & .icons {
         width:28vw;
-        font-size: 3rem;
+        font-size: 36px;
         justify-content:space-between;
         & * {
           /* margin: 0 0.5vw; */
@@ -204,7 +204,7 @@ export const FooterContainer = styled.div`
         padding:0;
 
         & p {
-          font-size: 1.5rem;
+          font-size: 24px;
         }
 
       & div.policies {
@@ -223,25 +223,27 @@ export const StyledHeader = styled.div`
     display: flex;
     padding: 1vh 0;
     border-bottom: 1px solid lightgrey;
+    justify-content:space-between;
     align-items: center;
     height: 12vh;
+    & img {
+        margin: 0 5vw;
+        max-height: 10vh;
+      }
     & nav {
-      width: 20vw;
+      align-self:flex-end;
+      width: 70vw;
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
       height: 10vh;
       padding: 1vw 5vw;
-
-      & img {
-        max-height: 80%;
-      }
       & .navlink {
         display: flex;
         align-items: center;
         justify-content: space-around;
         width: 6vw;
-        font-size: 24px;
+        font-size: 16px;
         text-decoration: none;
         color: black;
 
@@ -252,7 +254,21 @@ export const StyledHeader = styled.div`
           text-decoration: underline;
         }
         &.login {
-          border-right: 1px solid lightgray;
+          color:black;
+          background:white;
+          border-radius:4px;
+          padding:1vh 2vw;
+          box-shadow: 0 3px 8px 0 rgba(0,0,0,0.2), 0 3px 10px 0 rgba(0,0,0,0.19);
+border:1px solid black;
+transition-duration:.75s;
+          &:hover, :active {
+            background:black;
+            color:white;
+          
+          }
+          &:active {
+          color:rebeccapurple;
+}
         }
         &.cart {
           margin-left: 0.5vw;
@@ -265,31 +281,10 @@ export const StyledHeader = styled.div`
         }
         & svg {
           margin: 0 1vw;
+          font-size:24px;
+
         }
       }
-    }
-    & .symmetry {
-      width: 60vw;
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      height: 10vh;
-      padding: 1vw 1vw;
-      & .navlink {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 10vw;
-        font-size: 24px;
-        text-decoration: none;
-        color: black;
-        &:hover {
-          text-decoration: underline;
-        }
-      }
-    }
-    & .logoContainer {
-      width: 20vw;
     }
   }
 `;

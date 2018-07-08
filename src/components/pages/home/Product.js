@@ -82,20 +82,20 @@ const ProductCard = styled.div`
     width: 100%;
   }
   & h1 {
-    font-size: 3rem;
+    font-size: 24px;
     padding: 0.5vh 2vw;
     width: 100%;
     text-align: center;
   }
 
   & h2 {
-    font-size: 3rem;
+    font-size: 18px;
     text-align: center;
     width: 100%;
   }
   & p {
     margin: 0.5vh 0;
-    font-size: 3rem;
+    font-size: 18px;
   }
   & img {
     max-width: 18vw;
@@ -123,6 +123,8 @@ const Buttons = styled.div`
     & button {
       width: 100%;
       padding: 1vh 2vw;
+      height:100%;
+      font-size: 12px;
     }
   }
 `;

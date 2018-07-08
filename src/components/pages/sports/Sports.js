@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { PageContainer } from "../../styled/Containers";
-import SportCarousel from "./Carousel";
 import { connect } from "react-redux";
 import { getSportInfo } from "../../../ducks/miscReducer";
 
@@ -20,8 +19,8 @@ class DogSports extends Component {
   lastPhoto = e => {
     this.state.photoIndex === 0
       ? this.setState({ photoIndex: this.props.info.images.length - 1 }, () =>
-          console.log(this.state)
-        )
+        console.log(this.state)
+      )
       : this.setState({ photoIndex: this.state.photoIndex - 1 });
   };
   nextPhoto = () => {
@@ -38,7 +37,7 @@ class DogSports extends Component {
     }
     return (
       <PageContainer id="sportspage">
-        <div>
+        <div className="sportInfo">
           <h1>Canine Sports</h1>
           <p className="sportsBlurb">
             There are a broad range of canine sports that you and your dogs can

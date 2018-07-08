@@ -58,11 +58,11 @@ class Home extends Component {
     offset === 0
       ? this.setState(({ offset }) => ({ offset: 0 }))
       : this.setState({ offset: offset - 1 }, () =>
-          this.props.getInventory(
-            this.state.numberDisplayed,
-            this.state.numberDisplayed * this.state.offset
-          )
-        );
+        this.props.getInventory(
+          this.state.numberDisplayed,
+          this.state.numberDisplayed * this.state.offset
+        )
+      );
     console.log(offset);
   };
   offsetForward = e => {
@@ -71,11 +71,11 @@ class Home extends Component {
     offset === 4
       ? this.setState({ offset: 4 })
       : this.setState({ offset: offset + 1 }, () => {
-          this.props.getInventory(
-            this.state.numberDisplayed,
-            this.state.numberDisplayed * this.state.offset
-          );
-        });
+        this.props.getInventory(
+          this.state.numberDisplayed,
+          this.state.numberDisplayed * this.state.offset
+        );
+      });
     console.log(offset);
   };
   addToCart = (id, num) => {
@@ -83,14 +83,14 @@ class Home extends Component {
     this.props.user
       ? this.props.addToCart(id, num)
       : Swal({
-          title: "Sign up or Login!",
-          confirmButtonText: "Login",
-          text: "You aren't logged in. Log in to add items to your account!",
-          type: "warning"
-        }).then(() => {
-          console.log(`redirecting...`);
-          window.location.href = process.env.REACT_APP_LOGIN;
-        });
+        title: "Sign up or Login!",
+        confirmButtonText: "Login",
+        text: "You aren't logged in. Log in to add items to your account!",
+        type: "warning"
+      }).then(() => {
+        console.log(`redirecting...`);
+        window.location.href = process.env.REACT_APP_LOGIN;
+      });
   };
   render() {
     console.log(this.props);
@@ -244,10 +244,10 @@ const InventorySection = styled.div`
     background: black;
     color: white;
     & h1 {
-      font-size: 6rem;
+      font-size: 24px;
     }
     & h3 {
-      font-size: 3rem;
+      font-size: 20px;
       text-transform: capitalize;
       &.current {
         text-decoration: underline;
@@ -277,4 +277,9 @@ const Inventory = styled.div`
   align-items: center;
   margin: 2vh auto;
   flex-wrap: wrap;
+
+  & .offsets {
+    font-size:24px;
+  }
 `;
+

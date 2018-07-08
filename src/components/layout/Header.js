@@ -10,53 +10,41 @@ const Header = props => {
   console.log(props);
   return (
     <StyledHeader>
-      <div className="logoContainer">
-        <img src={logo} />
-      </div>
-      <div className="symmetry">
+      <img src={logo} />
+      <nav>
         <Link className="navlink other" to="/">
-          <p>Shop</p>
+          Shop
         </Link>
         <Link className="navlink sports" to="/sports">
-          <p>Sports</p>
+          Sports
         </Link>
         <Link className="navlink contact" to="/orders">
-          <p>Orders</p>
+          Orders
         </Link>
         <Link className="navlink about" to="/about">
-          <p>About Us</p>
+          About Us
         </Link>
         <Link className="navlink contact" to="/contact">
-          <p>Contact</p>
+          Contact
         </Link>
-      </div>
-      <nav>
-        {props.user && props.user.first_name ? (
-          <a className="navlink login" href={process.env.REACT_APP_LOGOUT}>
-            <div>
-              <p>Logout</p>
-            </div>
-          </a>
-        ) : (
-          <a className="navlink login" href={process.env.REACT_APP_LOGIN}>
-            <div>
-              <p>Login</p>
-            </div>
-          </a>
-        )}
         <Link className="navlink cart" to="/cart">
           {/* <p>Cart</p> */}
           <i className="fas fa-shopping-cart" />
           {props.cart[0] ? (
-            <ItemsInCart>
-              <h1>{props.cart.length}</h1>
-            </ItemsInCart>
+            <p>{props.cart.length}</p>
           ) : (
-            <ItemsInCart>
-              <h1>0</h1>
-            </ItemsInCart>
-          )}
+              <p>0</p>
+            )}
         </Link>
+        {props.user && props.user.first_name ? (
+          <a className="navlink login" href={process.env.REACT_APP_LOGOUT}>
+            Logout
+          </a>
+        ) : (
+            <a className="navlink login" href={process.env.REACT_APP_LOGIN}>
+              Login
+            </a>
+          )}
       </nav>
     </StyledHeader>
   );
@@ -72,24 +60,3 @@ export default connect(
   { addToCart }
 )(Header);
 
-const ItemsInCart = styled.div`
-  /* border: 1px solid black; */
-  height: 60px;
-  width: 60px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* position: fixed; */
-  top: 3vh;
-  right: 6.3vw;
-  /* border-radius: 50%; */
-
-  & h1 {
-    height: 40px;
-    width: 40px;
-    font-size: 3rem;
-    align-self: center;
-    line-height: 40px;
-    border-radius: 50%;
-  }
-`;
