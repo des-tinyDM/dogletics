@@ -31,10 +31,9 @@ const {
 const { getSportInfo } = require(`${__dirname}/controllers/miscController`);
 
 // stripe requirements
-const SERVER_CONFIGS = require(`${__dirname}/constants/server`);
 const configureServer = require(`./server`);
 const configureRoutes = require(`./routes/index.js`);
-const port = process.env.PORT;
+const port = process.env.PORT || 3001;
 
 const app = express();
 app.use(express.static(`${__dirname}/../build`));
@@ -98,10 +97,10 @@ passport.deserializeUser((user, done) => {
 app.get(
   `/auth`,
   passport.authenticate("auth0", {
-    // successRedirect: "http://localhost:3001/about",
-    // failureRedirect: "http://localhost:3001/auth",
-    successRedirect: "http://shopdogletics.destinylross-apps.com",
-    failureRedirect: "http://shopdogletics.destinylross-apps.com/auth"
+    successRedirect: "http://localhost:3001/",
+    failureRedirect: "http://localhost:3001/auth",
+    // successRedirect: "http://shopdogletics.destinylross-apps.com",
+    // failureRedirect: "http://shopdogletics.destinylross-apps.com/auth"
   })
 );
 

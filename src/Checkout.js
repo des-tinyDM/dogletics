@@ -21,6 +21,7 @@ const successPayment = data => {
 };
 
 const errorPayment = data => {
+  console.log(data)
   alert("Payment Error");
 };
 
@@ -36,7 +37,7 @@ const onToken = (amount, description, cartid) => token => {
     .then(successPayment)
     .then(() =>
       axios.post(`/api/cart/pay`, { cartid, amount }).then(() =>
-        setTimeout(function() {
+        setTimeout(function () {
           window.location.href = "http://localhost:3000/orders";
         }, 2000)
       )
