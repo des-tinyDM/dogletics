@@ -89,7 +89,7 @@ export const PageContainer = styled.div`
     }
 
     & p {
-      font-size: 20px;
+      font-size: 16px;
       text-align: start;
       text-indent: 2rem;
     }
@@ -262,8 +262,8 @@ export const StyledHeader = styled.div`
           border-radius:4px;
           padding:1vh 2vw;
           box-shadow: 0 3px 8px 0 rgba(0,0,0,0.2), 0 3px 10px 0 rgba(0,0,0,0.19);
-border:1px solid black;
-transition-duration:.75s;
+          border:1px solid black;
+          transition-duration:.75s;
           &:hover, :active {
             background:black;
             color:white;
